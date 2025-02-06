@@ -12,7 +12,6 @@ app.use(express.json()) //dizendo que vc vai usar o json dentro do express
 
 app.use(myMiddleware) // usar um middleware de forma global
 
-// o middleware sempre deve ser colocando antes da rota desejada
 
 
 app.get("/products/:id", (request, response) => {
@@ -22,7 +21,9 @@ app.get("/products/:id", (request, response) => {
 	response.send(`Hello World Express! ${id}`)
 })
 
-app.post("/products", (request, response) => {
+// colocar a função do middleware antes da funcao da rota
+
+app.post("/products", myMiddleware,(request, response) => {
 	const { name, price } = request.body
 
 	// response.send(`Nome do Produto é : ${name} Custa ${price}`) dessa forma a resposta
