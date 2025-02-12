@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { AppError } from "../utils/AppError";
+import { z } from 'zod'
 export class ProductsController {
 	/**
 	 * idex - GET para listar vários registros.
@@ -17,11 +18,12 @@ export class ProductsController {
 		response.send(`Hello World Expresss!`)
 	}
 	create(request: Request, response: Response) {
-		const { name, price } = request.body
+		const bodySchema = z.object({
+			name: z.string(),
+			price: z.number(),
+		})
 
-		if (!name || !price) {
-			throw new AppError("Nome e preço do produto são obrigatório!")
-		}
+		const { name, price } = bodySchema.parse(request.body)
 		//throw new Error("Erro ao tentar criar produto")
 
 		// throw new AppError('Erro ao tentar criar um produto!')
