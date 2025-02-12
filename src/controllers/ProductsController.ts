@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-
+import { AppError } from "../utils/AppError";
 export class ProductsController {
 	/**
 	 * idex - GET para listar vários registros.
@@ -18,6 +18,11 @@ export class ProductsController {
 	}
 	create(request: Request, response: Response) {
 		const { name, price } = request.body
+
+
+		//throw new Error("Erro ao tentar criar produto")
+
+		throw new AppError('Erro ao tentar criar um produto!')
 
 		// response.send(`Nome do Produto é : ${name} Custa ${price}`) dessa forma a resposta
 		// chega como um texto
