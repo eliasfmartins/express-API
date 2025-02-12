@@ -19,10 +19,12 @@ export class ProductsController {
 	create(request: Request, response: Response) {
 		const { name, price } = request.body
 
-
+		if (!name || !price) {
+			throw new AppError("Nome e preço do produto são obrigatório!")
+		}
 		//throw new Error("Erro ao tentar criar produto")
 
-		throw new AppError('Erro ao tentar criar um produto!')
+		// throw new AppError('Erro ao tentar criar um produto!')
 
 		// response.send(`Nome do Produto é : ${name} Custa ${price}`) dessa forma a resposta
 		// chega como um texto
